@@ -1,11 +1,15 @@
 import "./Color.css";
 import DeleteColor from "../DeleteColor/DeleteColor";
-import { useState } from "react";
+// import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import EditColorForm from "../EditColorForm/EditColorForm";
 
 export default function Color({ color, onDelete, onEditColor }) {
   // useState handleEditColor //
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useLocalStorageState(
+    "gurke",
+    { defaultValue: false }
+  );
 
   function handleDeleteClick() {
     setShowConfirmation(true);
@@ -24,7 +28,7 @@ export default function Color({ color, onDelete, onEditColor }) {
 
   // useState handleEditColor //
 
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useLocalStorageState(false);
 
   function handleShowEditClick() {
     setShowEditForm(true);
