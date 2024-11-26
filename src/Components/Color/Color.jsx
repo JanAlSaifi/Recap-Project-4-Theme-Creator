@@ -1,9 +1,10 @@
 import "./Color.css";
 import DeleteColor from "../DeleteColor/DeleteColor";
 import { useState } from "react";
+import EditColorForm from "../EditColorForm/EditColorForm";
 
-export default function Color({ color, onDelete }) {
-  //useState handleDelete
+export default function Color({ color, onDelete, onEditColor }) {
+  // useState handleEditColor //
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   function handleDeleteClick() {
@@ -19,6 +20,27 @@ export default function Color({ color, onDelete }) {
     setShowConfirmation(false);
   }
 
+  // END useState handleEditColor //
+
+  // useState handleEditColor //
+
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  function handleShowEditClick() {
+    setShowEditForm(true);
+  }
+
+  function handleConfirmEdit(updatedColor) {
+    onEditColor(updatedColor);
+    setShowEditForm(false);
+  }
+
+  function handleCancelEdit() {
+    setShowEditForm(false);
+  }
+
+  // END useState handleEditColor //
+
   return (
     <div
       className="color-card"
@@ -31,6 +53,16 @@ export default function Color({ color, onDelete }) {
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       <DeleteColor onDelete={handleDeleteClick} id={color.id} />
+      <button onClick={handleShowEditClick}>EDIT</button>
+
+      {showEditForm && (
+        <div>
+          <EditColorForm initialData={color} onEditColor={handleConfirmEdit} />
+          <p>Are you sure?</p>
+          <button onClick={handleCancelEdit}>Cancel</button>
+        </div>
+      )}
+
       {showConfirmation && (
         <div>
           <p>Are you sure?</p>
