@@ -4,7 +4,7 @@ import DeleteColor from "../DeleteColor/DeleteColor";
 import useLocalStorageState from "use-local-storage-state";
 import EditColorForm from "../EditColorForm/EditColorForm";
 
-export default function Color({ color, onDelete, onEditColor }) {
+export default function Color({ color, onDelete, onEditColor, onCopy }) {
   // useState handleEditColor //
   const [showConfirmation, setShowConfirmation] = useLocalStorageState(
     "gurke",
@@ -45,6 +45,10 @@ export default function Color({ color, onDelete, onEditColor }) {
 
   // END useState handleEditColor //
 
+  // useState handleCopyColor //
+
+  // END useState handleCopyColor //
+
   return (
     <div
       className="color-card"
@@ -54,6 +58,7 @@ export default function Color({ color, onDelete, onEditColor }) {
       }}
     >
       <h3 className="color-card-headline">{color.hex}</h3>
+      <button onClick={() => onCopy(color.hex)}>COPY</button>
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       <DeleteColor onDelete={handleDeleteClick} id={color.id} />
